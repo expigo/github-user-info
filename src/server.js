@@ -2,6 +2,7 @@ import express from 'express'
 import { json, urlencoded } from 'body-parser'
 import morgan from 'morgan'
 import cors from 'cors'
+import { notFound, devError } from './modules/errorHandlers'
 
 export const app = express()
 
@@ -13,6 +14,10 @@ app.use(morgan('dev'))
 app.get('/api', (req, res) => {
   res.send({ santaClaus: 'hohoho! 🤶👊' })
 })
+
+app.use(notFound)
+
+app.use(devError)
 
 export const start = async () => {
   app.listen(process.env.PORT || 2718, () => {
