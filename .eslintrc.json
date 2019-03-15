@@ -1,0 +1,24 @@
+{
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2018
+  },
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": ["standard", "prettier", "prettier/standard"],
+  "plugins": ["prettier"],
+  "rules": {
+    "promise/catch-or-return": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": false,
+        "singleQuote": true
+      }
+    ],
+    "no-console": 2
+  }
+}
