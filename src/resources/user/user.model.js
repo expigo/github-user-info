@@ -7,4 +7,11 @@ export default class User {
     const result = await axios(`${baseUrl}/users/${username}`)
     return result.data
   }
+
+  static async findAll() {
+    const result = await axios(`${baseUrl}/users`, {
+      validateStatus: status => (status >= 200 && status < 300) || 404
+    })
+    return result.data
+  }
 }

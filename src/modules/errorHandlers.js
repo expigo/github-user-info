@@ -1,9 +1,8 @@
 /*
  HOF that wraps around a controller with async/await code inside. Any error thrown will be catched and the information will be passed along to error handlers
 */
-export const catchErrors = controller => {
-  return (req, res, next) => controller(req, res, next).catch(next)
-}
+export const catchErrors = controller => (req, res, next) =>
+  controller(req, res, next).catch(next)
 
 /*
     Not Found Error Handler
