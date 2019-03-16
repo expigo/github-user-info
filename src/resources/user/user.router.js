@@ -13,6 +13,7 @@ router.route('/').get(catchErrors(controllers.findAll))
 // /api/user/:username
 router.route('/:username').get(catchErrors(controllers.getOne))
 
+// /api/user/:username/info
 router.route('/:username/info').get(catchErrors(controllers.getUserInfo))
 
 // /api/user/:username

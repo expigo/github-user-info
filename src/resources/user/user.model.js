@@ -1,22 +1,20 @@
 import axios from 'axios'
-
-const baseUrl = `https://api.github.com`
+import { url, addAuth } from '../../common/helpers'
 
 export default class User {
   static async findOneByName(username) {
-    const result = await axios(`${baseUrl}/users/${username}`)
+    // const result = await axios(`${baseUrl}/users/${username}`)
+    const result = await axios(url`users${username}`)
     return result.data
   }
 
   static async findAll() {
-    const result = await axios(`${baseUrl}/users`, {
-      validateStatus: status => (status >= 200 && status < 300) || 404
-    })
+    const result = await axios(url`users`)
     return result.data
   }
 
   static async getInfo({ login, email, repos_url: reposUrl }) {
-    const reposSummary = await getReposSummary(reposUrl)
+    const reposSummary = await getReposSummary(addAuth`${reposUrl}`)
     const reposListOfNames = prepareReposData(reposSummary)
     const langStats = getLangStats(reposSummary)
 
@@ -26,10 +24,9 @@ export default class User {
 
 // class-private methods
 const getReposSummary = async reposUrl => {
-  const userReposInfo = await axios(reposUrl, {
-    validateStatus: status => (status >= 200 && status < 300) || 404
-  })
+  const userReposInfo = await axios(reposUrl)
 
+  console.log(userReposInfo)
   const filteredAndMapped = await extractNameLangAndUrl(userReposInfo.data)
 
   return filteredAndMapped
@@ -48,9 +45,7 @@ const extractNameLangAndUrl = async repos => {
 }
 
 const getRepoLangInfo = async url => {
-  const info = await axios(url, {
-    validateStatus: status => (status >= 200 && status < 300) || 404
-  })
+  const info = await axios(addAuth`${url}`)
 
   return info.data
 }
