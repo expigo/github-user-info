@@ -3,6 +3,7 @@ import { json, urlencoded } from 'body-parser'
 import morgan from 'morgan'
 import cors from 'cors'
 import { notFound, devError } from './modules/errorHandlers'
+import userRouter from './resources/user/user.router'
 
 export const app = express()
 
@@ -14,6 +15,8 @@ app.use(morgan('dev'))
 app.get('/api', (req, res) => {
   res.send({ santaClaus: 'hohoho! 🤶👊' })
 })
+
+app.use('/api/user', userRouter)
 
 app.use(notFound)
 
