@@ -18,10 +18,13 @@ export default class User {
   static async getInfo({ login, email, repos_url: reposUrl }) {
     const reposSummary = await getReposSummary(reposUrl)
     const reposListOfNames = prepareReposData(reposSummary)
+    const langStats = getLangStats(reposSummary)
 
-    return { login, email: email || '🥔', reposListOfNames }
+    return { login, email: email || '🥔', reposListOfNames, langStats }
   }
 }
+
+// class-private methods
 const getReposSummary = async reposUrl => {
   const userReposInfo = await axios(reposUrl, {
     validateStatus: status => (status >= 200 && status < 300) || 404
@@ -60,3 +63,42 @@ const prepareReposData = rawData =>
     }),
     {}
   )
+
+const getLangStats = rawData => {
+  const { allTogether, ...langs } = groupByPropsAndSumValues(rawData)
+
+  const getChunk = calcShares(allTogether)
+
+  const langShares = immutableObjMapper(langs, ([k, v]) => ({
+    [k]: getChunk(v).toFixed(2)
+  }))
+
+  return langShares
+}
+
+const groupByPropsAndSumValues = reposData =>
+  reposData.reduce((prev, curr) => sumLangs(prev, curr.lang), {
+    allTogether: 0
+  })
+
+const sumLangs = (prevArr = {}, currObj) => {
+  for (let i in currObj) {
+    if (prevArr.hasOwnProperty(i)) {
+      prevArr[i] += Number(currObj[i])
+    } else {
+      prevArr[i] = Number(currObj[i])
+    }
+
+    prevArr['allTogether'] += currObj[i]
+  }
+
+  return prevArr
+}
+
+const calcShares = whole => x => (x * 100) / whole
+
+/*
+  Returns new object with the same property names but new values, mapped with the passed function
+*/
+const immutableObjMapper = (objectToMap, biConsumer) =>
+  Object.assign(...Object.entries(objectToMap).map(biConsumer))
