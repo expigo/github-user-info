@@ -13,6 +13,8 @@ router.route('/').get(catchErrors(controllers.findAll))
 // /api/user/:username
 router.route('/:username').get(catchErrors(controllers.getOne))
 
+router.route('/:username/info').get(catchErrors(controllers.getUserInfo))
+
 // /api/user/:username
 router.use('/:username/repo', repoRouter)
 
