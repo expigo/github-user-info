@@ -1,15 +1,17 @@
 import { Router } from 'express'
 import { catchErrors } from '../../modules/errorHandlers'
-import { getAll, getOne } from './user.controllers'
+import controllers from './user.controllers'
 import repoRouter from '../repo/repo.router'
 
 const router = Router()
 
+router.param('username', controllers.findBy)
+
 // /api/user
-router.route('/').get(catchErrors(getAll))
+router.route('/').get(catchErrors(controllers.findAll))
 
 // /api/user/:username
-router.route('/:username').get(catchErrors(getOne))
+router.route('/:username').get(catchErrors(controllers.getOne))
 
 // /api/user/:username
 router.use('/:username/repo', repoRouter)
