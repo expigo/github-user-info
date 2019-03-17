@@ -14,10 +14,12 @@ export default class User {
 
   static async getInfo({ login, email, repos_url: reposUrl }) {
     const reposSummary = await getReposSummary(addAuth`${reposUrl}`)
-    const reposListOfNames = prepareReposData(reposSummary)
-    const langStats = getLangStats(reposSummary)
-
-    return { login, email: email || '🥔', reposListOfNames, langStats }
+    if (reposSummary !== 'empty') {
+      const reposListOfNames = prepareReposData(reposSummary)
+      const langStats = getLangStats(reposSummary)
+      return { login, email: email || '🥔', reposListOfNames, langStats }
+    }
+    return { login, email: email || '🥔', repoInfo: 'no repos available' }
   }
 }
 
@@ -25,6 +27,9 @@ export default class User {
 const getReposSummary = async reposUrl => {
   const userReposInfo = await axios(reposUrl)
 
+  if (!Array.isArray(userReposInfo.data) || !userReposInfo.data.length) {
+    return 'empty'
+  }
   const filteredAndMapped = await extractNameLangAndUrl(userReposInfo.data)
 
   return filteredAndMapped
