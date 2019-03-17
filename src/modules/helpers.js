@@ -1,7 +1,7 @@
 export const url = (parts, ...params) => {
   const baseUrl = `https://api.github.com`
 
-  const urlEndings = buildEndingsFromParts(parts, params)
+  const urlEndings = buildEndingsFromParts(flattenDeep(parts), params)
 
   const urlToHit = `${baseUrl}/${urlEndings}`
   const urlWithAuth = addAuth`${urlToHit}`

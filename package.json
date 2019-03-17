@@ -11,7 +11,8 @@
     "start": "node dist/index.js",
     "restart": "rimraf dist && yarn build && yarn start",
     "dev": "nodemon --exec yarn restart",
-    "test": "cross-env NODE_ENV=testing jest --silent"
+    "test": "cross-env NODE_ENV=testing jest --silent",
+    "test:helpers": "yarn test -t helpers --forceExit --detectOpenHandles"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
@@ -26,14 +27,14 @@
     "validator": "^10.9.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-template-literals": "^7.2.0",
     "@babel/preset-env": "^7.0.0",
-    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^8.2.1",
-    "babel-jest": "^23.4.2",
+    "babel-jest": "^24.5.0",
     "eslint": "^4.15.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^11.0.0",
@@ -45,7 +46,7 @@
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "jest": "^23.6.0",
+    "jest": "^24.5.0",
     "nodemon": "^1.18.3",
     "prettier": "^1.15.2",
     "rimraf": "^2.6.2"
