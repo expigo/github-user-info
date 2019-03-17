@@ -1,7 +1,11 @@
 {
   "name": "sap-task",
   "version": "1.0.0",
-  "description": "bum cyk recruitment task",
+  "engines": {
+    "node": ">= 7.6.0"
+  },
+  "private": true,
+  "description": "recruitment task",
   "main": "index.js",
   "repository": "https://github.com/expigo/sap-task.git",
   "author": "Kryspin Musiol <kryspin.musiol@gmail.com>",
@@ -18,10 +22,12 @@
     "@babel/polyfill": "^7.2.5",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
     "cors": "^2.8.5",
     "cross-env": "^5.2.0",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
+    "helmet": "^3.16.0",
     "lodash.isfunction": "^3.0.9",
     "morgan": "^1.9.1",
     "validator": "^10.9.0"
