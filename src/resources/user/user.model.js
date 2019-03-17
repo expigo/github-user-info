@@ -26,7 +26,6 @@ export default class User {
 const getReposSummary = async reposUrl => {
   const userReposInfo = await axios(reposUrl)
 
-  console.log(userReposInfo)
   const filteredAndMapped = await extractNameLangAndUrl(userReposInfo.data)
 
   return filteredAndMapped

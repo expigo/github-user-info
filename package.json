@@ -10,15 +10,18 @@
     "build": "babel src --out-dir dist",
     "start": "node dist/index.js",
     "restart": "rimraf dist && yarn build && yarn start",
-    "dev": "nodemon --exec yarn restart"
+    "dev": "nodemon --exec yarn restart",
+    "test": "cross-env NODE_ENV=testing jest --silent"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
+    "lodash.isfunction": "^3.0.9",
     "morgan": "^1.9.1",
     "validator": "^10.9.0"
   },
@@ -30,18 +33,29 @@
     "@babel/preset-env": "^7.0.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^8.2.1",
+    "babel-jest": "^23.4.2",
     "eslint": "^4.15.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
+    "jest": "^23.6.0",
     "nodemon": "^1.18.3",
     "prettier": "^1.15.2",
     "rimraf": "^2.6.2"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "dist/"
+    ],
+    "restoreMocks": true
   }
 }
