@@ -1,5 +1,5 @@
 import Repo from './repo.model'
-import { addAuth } from '../../common/helpers'
+import { addAuth } from '../../modules/helpers'
 
 export const findAll = async (req, res) => {
   const { data } = await Repo.findAll(addAuth`${req.entityFromParam.repos_url}`)

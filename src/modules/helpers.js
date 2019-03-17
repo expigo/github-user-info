@@ -6,8 +6,6 @@ export const url = (parts, ...params) => {
   const urlToHit = `${baseUrl}/${urlEndings}`
   const urlWithAuth = addAuth`${urlToHit}`
 
-  console.log(urlWithAuth)
-
   return urlWithAuth
 }
 
@@ -16,13 +14,12 @@ export const addAuth = (_, ...url) => {
     process.env.CLIENT_ID
   }&client_secret=${process.env.CLIENT_SECRET}`
 
-  console.log(authorizedUrl)
   return authorizedUrl
 }
 
 const buildEndingsFromParts = (base, params) => {
-  const rrur = concatenateAlternately(base, params)
-  const comps = flattenDeep(rrur)
+  const concatenated = concatenateAlternately(base, params)
+  const comps = flattenDeep(concatenated)
     .join('')
     .replace(/\/+$/, '') // remove trailing slashes
 
@@ -34,6 +31,7 @@ const concatenateAlternately = (arr1 = [], arr2 = []) => [
   arr2.length ? concatenateAlternately(arr2, arr1.slice(1)) : arr1.slice(1)
 ]
 
+// Array.prototype.flat() polyfill
 const flattenDeep = arr =>
   arr.reduce(
     (acc, val) =>

@@ -1,9 +1,8 @@
 import axios from 'axios'
-import { url, addAuth } from '../../common/helpers'
+import { url, addAuth } from '../../modules/helpers'
 
 export default class User {
   static async findOneByName(username) {
-    // const result = await axios(`${baseUrl}/users/${username}`)
     const result = await axios(url`users${username}`)
     return result.data
   }
@@ -22,7 +21,7 @@ export default class User {
   }
 }
 
-// class-private methods
+// module-private methods
 const getReposSummary = async reposUrl => {
   const userReposInfo = await axios(reposUrl)
 
