@@ -1,6 +1,6 @@
 # sap-task
 
-A task for a recruitment process for Junior Cloud Developer position at SAP.
+Simple app for retrieving basic information about the given github user.
 
 # API endpoints
 
